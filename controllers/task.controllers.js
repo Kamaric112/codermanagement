@@ -90,6 +90,7 @@ taskController.updateTaskById = async (req, res, next) => {
     const updatedTask = await Task.findByIdAndUpdate(taskId, updateBody, { new: true });
 
     // if task already have assign user , delete that person and push into new user
+    // user check if clunky, might fix later
     if (updateBody.user) {
       let assignedUser = await User.findOne({ _id: updateBody.user });
       if (!assignedUser) throw new AppError(404, 'Bad Request', 'Cannot find user');
